@@ -97,14 +97,14 @@
 
   <div class="form-group">
     <div class="row mb-3">
-      <div class="col-md-1" [ngClass]="aplicaCssErro('cargo')">
+      <div class="col-md-3" [ngClass]="aplicaCssErro('cargo')">
         <label for="cargo" class="form-label">Cargo</label>
         <select class="form-control" id="cargo" formControlName="cargo" [compareWith]="compararCargos">
           <option *ngFor="let cargo of cargos" [ngValue]="cargo">{{ cargo.desc }}</option>
         </select>
       </div>
 
-      <div class="col-md-2" [ngClass]="aplicaCssErro('tecnologias')">
+      <div class="col-md-2 mt-2" [ngClass]="aplicaCssErro('tecnologias')">
         <label for="tecnologias" class="form-label">Tecnologias</label>
         <select multiple class="form-control" id="tecnologias" formControlName="tecnologias">
           <option *ngFor="let tecnologia of tecnologias" [value]="tecnologia.nome">{{ tecnologia.desc }}</option>
@@ -112,7 +112,7 @@
       </div>
 
 
-      <div class="col-md-5" [ngClass]="aplicaCssErro('newsletter')">
+      <div class="col-md-4" [ngClass]="aplicaCssErro('newsletter')">
         <label for="newsletter" class="form-check-inline m-1">Newsletter</label>
         <div id="newsletter" class="row">
           <div class="col-sm-2" *ngFor="let item of newsletterOp">
@@ -123,6 +123,24 @@
         </div>
       </div>
     </div>
+
+    <div class="form-group mt-4 mb-4">  
+      <div class="col-md-12">
+        <div class="checkbox">
+
+          <div class="form-check" [ngClass]="aplicaCssErro('termos')">
+            <input class="form-check-input" type="checkbox" formControlName="termos">
+            <label class="form-check-label" for="flexCheckDefault">
+             Li e Aceito os termos.
+            </label>
+            <app-campo-control-erro [mostrarErro]="verificaValidTouched('termos')" msgErro="Por favor, aceite os termos">
+            </app-campo-control-erro>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
 
     <button type="submit" class="btn btn-primary m-2">Submit</button>
     <button class="btn btn-primary m-2" (click)="resetar()">Cancelar</button>
