@@ -2,7 +2,7 @@
 
 `https://loiane.training/continuar-curso/angular`
 
-## Exercícios Realizados durante o curso
+## Exercícios realizados durante o curso
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.4.
 
