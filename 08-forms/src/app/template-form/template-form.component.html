@@ -1,0 +1,97 @@
+<div class="container mt-5 mb-5">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+    <!-- Nome -->
+    <div class="mb-3 col-sm-12">
+      <label for="nome" class="form-label">Nome</label>
+      <input type="text" class="form-control" name="nome" id="nome" placeholder="nome" [ngModel]="usuario.nome" required
+        #nome="ngModel" [ngClass]="aplicaCssErro(nome)">
+      <app-campo-control-erro [mostrarErro]="verificaValidTouched(nome)" msgErro="Nome é obrigatório">
+      </app-campo-control-erro>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3 col-sm-12">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" name="email" id="email" placeholder="digite um email válido"
+        [ngModel]="usuario.email" #email="ngModel" required email [ngClass]="aplicaCssErro(email)">
+      <app-campo-control-erro [mostrarErro]="verificaValidTouched(email)" msgErro=" Email é obrigatório">
+      </app-campo-control-erro>
+    </div>
+
+
+    <!-- Cep -->
+    <div ngModelGroup="endereco">
+    <div class="row mb-3">
+      <div class="col-md-3 mb-3">
+        <label for="cep" class="form-label">CEP</label>
+        <input type="text" class="form-control" id="cep" name="cep" ngModel required #cep="ngModel"
+        (blur)="consultaCEP(cep.value, f)"
+          [ngClass]="aplicaCssErro(cep)">
+        <app-campo-control-erro [mostrarErro]="verificaValidTouched(cep)" msgErro=" CEP é obrigatório">
+        </app-campo-control-erro>
+      </div>
+
+      <!-- Número -->
+      <div class="col-md-3">
+        <label for="numero" class="form-label">Número</label>
+        <input type="text" class="form-control" id="numero" name="numero" ngModel required #numero="ngModel"
+          [ngClass]="aplicaCssErro(numero)">
+        <app-campo-control-erro [mostrarErro]="verificaValidTouched(numero)" msgErro=" Número é obrigatório">
+        </app-campo-control-erro>
+      </div>
+
+      <!-- complemento -->
+      <div class="col-md-6">
+        <label for="complemento" class="form-label">Complemento</label>
+        <input type="text" class="form-control" id="complemento" name="complemento" ngModel #complemento="ngModel"
+          [ngClass]="aplicaCssErro(complemento)">
+      </div>
+
+      <!-- rua -->
+      <div class="col-sm-12">
+        <label for="rua" class="form-label">Rua</label>
+        <input type="text" class="form-control" [ngClass]="aplicaCssErro(rua)" name="rua" id="rua" ngModel required #rua="ngModel">
+        <app-campo-control-erro [mostrarErro]="verificaValidTouched(rua)" msgErro="Rua é obrigatório">
+        </app-campo-control-erro>
+      </div>
+
+    </div>
+
+    <!-- Bairro -->
+    <div class="row mb-3">
+      <div class="col-md-5">
+        <label for="bairro" class="form-label">Bairro</label>
+        <input type="text" class="form-control" id="bairro" name="bairro" ngModel required #bairro="ngModel"
+          [ngClass]="aplicaCssErro(bairro)">
+        <app-campo-control-erro [mostrarErro]="verificaValidTouched(bairro)" msgErro=" Bairro é inválido">
+        </app-campo-control-erro>
+      </div>
+
+      <!-- Cidade -->
+      <div class="col-md-4">
+        <label for="cidade" class="form-label">Cidade</label>
+        <input type="text" class="form-control" id="cidade" name="cidade" ngModel required #cidade="ngModel"
+          [ngClass]="aplicaCssErro(cidade)">
+        <app-campo-control-erro [mostrarErro]="verificaValidTouched(cidade)" msgErro=" Cidade é inválida">
+        </app-campo-control-erro>
+      </div>
+
+      <!-- Estado -->
+      <div class="col-md-3">
+        <label for="estado" class="form-label">Estado</label>
+        <input type="text" class="form-control" id="estado" name="estado" ngModel required #estado="ngModel"
+          [ngClass]="aplicaCssErro(estado)">
+        <app-campo-control-erro [mostrarErro]="verificaValidTouched(estado)" msgErro=" Estado é inválido">
+        </app-campo-control-erro>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+    <br> <br>
+
+    <form-debug [form]="f"></form-debug>
+
+</div>
+</form>
+</div>

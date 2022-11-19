@@ -1,0 +1,110 @@
+<!-- <section>
+ <article>
+    <h3>Interpolação / Interpolation</h3>
+    <p>String renderizada com interpolação: {{ url }} </p>
+  <p>Resultado de 1 + 1 é : {{ 1 + 1 }}</p>
+    <p>Resultado de 1 + 1 Não é : {{ 1 + 1 + getValor() }}</p>
+
+    <p>Curso de Angular e gosto do curso:
+      {{ cursoAngular && getCurtirCurso() }}
+    </p>
+  </article>  
+</section> -->
+
+<!-- <section>
+  <article>
+    <h3>Property Binding</h3>
+    <ul>
+      <li>É o valor do Component para o template</li>
+      <li>usa-se colchetes envolta da propriedade</li>
+    </ul>
+    <h4>Exemplos</h4>
+    <p>usando apenas a interpolacao (chaves)</p>
+    <img src="{{ urlImagem }}">
+    <p>Usando [src]="nomeVariavel"</p>
+    <img [src]="urlImagem">
+    <p>Entendendo ocorre por trás do [src]=" " </p>
+    <img bind-src="urlImagem">
+  </article>
+</section> -->
+
+<!-- <section>
+  <article>
+    <h3>Class e Style Binding</h3>
+    <div>
+      Selecione uma classe:
+      <select #classe (change)="0">
+        <option value="alert-primary">primary</option>
+        <option value="alert-secondary">secondary</option>
+        <option value="alert-success">success</option>
+        <option value="alert-danger">danger</option>
+        <option value="alert-warning">warning</option>
+        <option value="alert-info">info</option>
+        <option value="alert-light">light</option>
+        <option value="alert-dark">dark</option>
+      </select>
+      <br><br>
+
+      <div class="alert {{ classe.value }}" role="alert">
+        Texto colorido conforme valor do combobox.
+      </div>
+
+      <div class="alert" role="alert" [class.alert-primary]="classe.value == 'alert-primary'">primary</div>
+      <div class="alert" role="alert" [class.alert-secondary]="classe.value == 'alert-secondary'">secondary</div>
+      <div class="alert" role="alert" [class.alert-success]="classe.value == 'alert-success'">success</div>
+      <div class="alert" role="alert" [class.alert-danger]="classe.value == 'alert-danger'">danger</div>
+      <div class="alert" role="alert" [class.alert-warning]="classe.value == 'alert-warning'">warning</div>
+      <div class="alert" role="alert" [class.alert-info]="classe.value == 'alert-info'">info</div>
+      <div class="alert" role="alert" [class.alert-light]="classe.value == 'alert-light'">light</div>
+      <div class="alert" role="alert" [class.alert-dark]="classe.value == 'alert-dark'">dark</div>
+
+      <div class="alert alert-light" role="alert" [style.display]="classe.value == 'alert-light' ? 'block' : 'none'">
+        Esse texto somente aparece em caso de erro.
+      </div>
+
+    </div>
+  </article>
+</section> -->
+
+
+<!-- <section>
+  <article><br>
+    <div class="container">
+      <h3>Event Binding</h3>
+      <div>
+        <button (click)="botaoClicado()" class="btn btn-primary">Clique Aqui</button>
+      </div>
+
+      <br><br>
+
+      <input type="text" (keyup)="onKeyUp($event)" (keyup.enter)="salvarValor(campoInput.value)"
+        (blur)="salvarValor(campoInput.value)" #campoInput />
+
+      <p>valor atual: {{ valorAtual }}</p>
+      <p>valor salvo: {{ valorSalvo }}</p>
+
+      <br>
+      <span 
+      (mouseover)="onMouseOverOut()"
+      (mouseout)="onMouseOverOut()"
+      [class.highlight]="isMouseOver"
+        >Passe o mouse sobre mim
+      </span>
+
+    </div>
+  </article>
+
+</section> 
+<app-meu-form></app-meu-form>-->
+
+
+<section class="input-output-properties">
+
+  <article>
+    <h3>Input/Output Properties</h3>
+
+    <app-curso [nome]="nomeCurso"></app-curso>
+
+    <contador [valor]="valorInicial" (mudouValor)="onMudouValor($event)"></contador>
+  </article>
+</section>

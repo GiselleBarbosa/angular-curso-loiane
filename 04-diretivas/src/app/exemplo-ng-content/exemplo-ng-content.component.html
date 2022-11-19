@@ -1,0 +1,19 @@
+<!-- <div class="card">
+  <div class="card-header">
+    <h5 div class="card-title">Titulo</h5>
+  </div>
+  <div class="card-body">
+    <ng-content></ng-content>
+  </div>
+</div> -->
+
+<div class="card">
+  <div class="card-header">
+    <h5 div class="card-title">
+      <ng-content select=".title"></ng-content>
+    </h5>
+  </div>
+  <div class="card-body">
+    <ng-content select=".body"></ng-content>
+  </div>
+</div>

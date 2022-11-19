@@ -1,0 +1,41 @@
+<nav *ngIf="mostrarMenu" class="navbar navbar-expand-lg navbar-dark bg-danger p-3">
+  <div class="container-fluid">
+
+    <a routerLink="" class="navbar-brand">Projeto Angular</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+       <ul class="navbar-nav me-auto mb-2 mb-lg-0 mr-2 ">
+      
+        <!-- <li><a routerLink="" class="nav-link">Home</a></li> -->
+        <li><a routerLink="/cursos" [queryParams]="{pagina:1}" class="nav-link">Cursos</a></li>
+        <!-- <li outerLink="active"><a [routerLink]="['cursos', idCurso.value]" class="nav-link">Cursos com ID</a></li> -->
+        <li><a routerLink="/alunos" class="nav-link">Alunos</a></li>
+        <!-- <li routerLink="active"><a routerLink="/alunos" class="nav-link">Alunos</a></li> -->
+       
+      </ul>
+
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-primary">
+          <a routerLink="/login" class="nav-link text-light">Login</a></button></div>
+   
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <!-- <p>Entre com o id do curso: </p>
+  <input #idCurso> -->
+  <router-outlet></router-outlet>
+</div>
+
+<!-- <h2>Conteudo do app componentes html (html geral)</h2>
+<hr>
+
+<app-home></app-home>
+<app-login></app-login>
+<app-cursos></app-cursos> -->
