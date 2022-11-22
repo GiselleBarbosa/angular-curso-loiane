@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 import { EstadoBr } from '../shared/models/estado-br';
 import { DropdownService } from '../shared/services/dropdown.service';
@@ -18,9 +18,9 @@ export class DataFormComponent implements OnInit {
   cargos!: any[];
   tecnologias!: any[];
   newsletterOp!: any[];
+  frameworks = ['Angular', 'React', 'Vue', 'Sencha']
 
-  
-  constructor(
+    constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private dropdownService: DropdownService,
@@ -68,12 +68,34 @@ export class DataFormComponent implements OnInit {
       cargo: [null],
       tecnologias: [null],
       newsletter: ['s'],
-      termos: [null, Validators.pattern('true')]
+      termos: [null, Validators.pattern('true')],
+      frameworks: this.buildFrameworks()
     });
   }
 
+  buildFrameworks() {
+    const values = this.frameworks.map( v => new FormControl(false));
+    return this.formBuilder.array(values);
+   /*  this.formBuilder.array ([
+      new FormControl(false),
+      new FormControl(false),
+      new FormControl(false),
+      new FormControl(false),
+    ]); */
+  }
+
+
   onSubmit() {
     console.log(this.formulario.value);
+
+    let valueSubmit = Object.assign({}, this.formulario.value);
+
+    valueSubmit = Object.assign(valueSubmit, {
+     frameworks: valueSubmit.frameworks.map((v: any, i:any ) => v ? this.frameworks[i] :  null).filter((v: null) => v !== null)
+    
+    })
+    console.log(valueSubmit);
+    
 
     if (this.formulario.valid) {
 
@@ -103,7 +125,7 @@ export class DataFormComponent implements OnInit {
   }
 
   verificaValidTouched(campo: string) {
-    return !this.formulario.get(campo)?.valid && this.formulario.get(campo)?.dirty
+    return !this.formulario.get(campo)?.valid && this.formulario.get(campo)?.touched
   }
 
   verificaEmailInvalido() {
@@ -163,8 +185,8 @@ export class DataFormComponent implements OnInit {
     return obj1 && obj2 ? (obj1.nome === obj2.nome && obj1.nivel === obj2.nivel) : obj1 === obj2
   }
 
-  setarTecnologias(){
-    this.formulario.get('tecnologias')?.setValue(['java','javascript','php']);
+  setarTecnologias() {
+    this.formulario.get('tecnologias')?.setValue(['java', 'javascript', 'php']);
 
   }
 }

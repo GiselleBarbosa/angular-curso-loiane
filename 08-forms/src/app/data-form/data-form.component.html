@@ -117,35 +117,55 @@
         <div id="newsletter" class="row">
           <div class="col-sm-2" *ngFor="let item of newsletterOp">
             <label class="form-check-inline">{{ item.desc }}
-              <input name="newsletter" class="form-check-input ms-2" type="radio" [value]="item.desc" formControlName="newsletter">
-          </label>
+              <input name="newsletter" class="form-check-input ms-2" type="radio" [value]="item.desc"
+                formControlName="newsletter">
+            </label>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="form-group mt-4 mb-4">  
-      <div class="col-md-12">
-        <div class="checkbox">
+    <div class="form-group">
 
-          <div class="form-check" [ngClass]="aplicaCssErro('termos')">
+    <div class="row mb-4 mt-4">
+      <div class="col-md-3">
+        <div class="form-check" [ngClass]="aplicaCssErro('termos')">
+          <div class="checkbox">
             <input class="form-check-input" type="checkbox" formControlName="termos">
-            <label class="form-check-label" for="flexCheckDefault">
-             Li e Aceito os termos.
-            </label>
-            <app-campo-control-erro [mostrarErro]="verificaValidTouched('termos')" msgErro="Por favor, aceite os termos">
+            <label class="form-check-label">Li e Aceito os termos.</label>
+            <app-campo-control-erro [mostrarErro]="verificaValidTouched('termos')"
+              msgErro="Por favor, aceite os termos">
             </app-campo-control-erro>
           </div>
+        </div>
+      </div>
 
+      <div class="col-md-4">
+        <label class="col-md-3 mb-2">Frameworks</label>
+        <div class="form-check" [ngClass]="aplicaCssErro('frameworks')">
+
+          <div id="frameworks" class="row">
+            <div class="checkbox" class="col-sm-4 col-md-3" formArrayName="frameworks" 
+            *ngFor="let item of formulario.get('frameworks')?.value; let i = index">
+              <label class="form-check-label">
+                
+                <input class="form-check-input" type="checkbox" [formControlName]="i">
+                {{ frameworks[i] }}
+              </label>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
 
-    <button type="submit" class="btn btn-primary m-2">Submit</button>
-    <button class="btn btn-primary m-2" (click)="resetar()">Cancelar</button>
-    <button class="btn btn-primary m-2" (click)="setarCargo()">Cargo</button>
-    <button class="btn btn-primary" (click)="setarTecnologias()">Tecnologias</button>
+  <button type="submit" class="btn btn-primary m-2">Submit</button>
+  <button class="btn btn-primary m-2" (click)="resetar()">Cancelar</button>
+  <button class="btn btn-primary m-2" (click)="setarCargo()">Cargo</button>
+  <button class="btn btn-primary" (click)="setarTecnologias()">Tecnologias</button>
 
-    <form-debug [form]="formulario"></form-debug>
-    <br> <br>
+  <form-debug [form]="formulario"></form-debug>
+  <br> <br>
