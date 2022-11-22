@@ -10,7 +10,6 @@ export class CampoControlErroComponent implements OnInit {
   @Input() mostrarErro: boolean | undefined;
   @Input() msgErro: string = '';
 
-
   constructor() { }
 
   ngOnInit(): void {

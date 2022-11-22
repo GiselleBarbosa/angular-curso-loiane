@@ -5,8 +5,8 @@
     <input type="text" class="form-control" [ngClass]="aplicaCssErro('nome')" formControlName="nome" id="nome"
       placeholder="nome">
 
-    <app-campo-control-erro [mostrarErro]="verificaValidTouched('nome')" msgErro="Nome é obrigatório">
-    </app-campo-control-erro>
+    <app-error-msg [control]="$any(formulario.get('nome'))" label="Nome">
+    </app-error-msg>
   </div>
 
   <!-- Email -->
