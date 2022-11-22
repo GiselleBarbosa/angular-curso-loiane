@@ -152,6 +152,9 @@
                 {{ frameworks[i] }}
               </label>
             </div>
+            <app-campo-control-erro [mostrarErro]="verificaValidTouched('frameworks')"
+            msgErro="Selecione ao menos uma opção">
+          </app-campo-control-erro>
 
           </div>
         </div>

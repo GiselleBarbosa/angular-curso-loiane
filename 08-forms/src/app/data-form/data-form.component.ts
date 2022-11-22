@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 import { EstadoBr } from '../shared/models/estado-br';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
+import { FormValidations } from '../shared/services/form-validation';
 
 @Component({
   selector: 'data-form',
@@ -75,7 +76,7 @@ export class DataFormComponent implements OnInit {
 
   buildFrameworks() {
     const values = this.frameworks.map(v => new FormControl(false));
-    return this.formBuilder.array(values);
+    return this.formBuilder.array(values, FormValidations.requiredMinCheckbox(1));
     /*  this.formBuilder.array ([
        new FormControl(false),
        new FormControl(false),
@@ -84,11 +85,35 @@ export class DataFormComponent implements OnInit {
      ]); */
   }
 
-  get formData() { 
-    return <FormArray>this.formulario.get('frameworks'); 
+  get formData() {
+    return <FormArray>this.formulario.get('frameworks');
   }
 
+  // requiredMinCheckbox(min = 1) {
+  //   const validator = (formArray: FormArray) => {
+  //     /*   const values = formArray.controls;
+  //       let totalChecked = 0
+  //       for(let i = 0; i < values.length ; i++) {
+  //         if(values[i].value){
+  //           totalChecked += 1
+  //         }
+  //       } */
+  //     const totalChecked = formArray.controls
+  //       .map(v => v.value)
+  //       .reduce((total, current) => current ? total + current : total, 0)
+  //     return totalChecked >= min ? null : { required: true };
+  //   };
+  //   return validator;
+  // }
 
+  /* 
+  requiredMinCheckbox(min = 1) {
+    return (formArray: AbstractControl) => {
+      const totalChecked = (<FormArray>formArray).controls.filter(v => v.value).length;
+      return totalChecked >= min ? null : { required: true };
+    }
+  }
+   */
   onSubmit() {
     console.log(this.formulario.value);
 
