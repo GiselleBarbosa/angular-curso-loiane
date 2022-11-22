@@ -20,7 +20,7 @@ export class DataFormComponent implements OnInit {
   newsletterOp!: any[];
   frameworks = ['Angular', 'React', 'Vue', 'Sencha']
 
-    constructor(
+  constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private dropdownService: DropdownService,
@@ -74,14 +74,18 @@ export class DataFormComponent implements OnInit {
   }
 
   buildFrameworks() {
-    const values = this.frameworks.map( v => new FormControl(false));
+    const values = this.frameworks.map(v => new FormControl(false));
     return this.formBuilder.array(values);
-   /*  this.formBuilder.array ([
-      new FormControl(false),
-      new FormControl(false),
-      new FormControl(false),
-      new FormControl(false),
-    ]); */
+    /*  this.formBuilder.array ([
+       new FormControl(false),
+       new FormControl(false),
+       new FormControl(false),
+       new FormControl(false),
+     ]); */
+  }
+
+  get formData() { 
+    return <FormArray>this.formulario.get('frameworks'); 
   }
 
 
@@ -91,11 +95,13 @@ export class DataFormComponent implements OnInit {
     let valueSubmit = Object.assign({}, this.formulario.value);
 
     valueSubmit = Object.assign(valueSubmit, {
-     frameworks: valueSubmit.frameworks.map((v: any, i:any ) => v ? this.frameworks[i] :  null).filter((v: null) => v !== null)
-    
-    })
+      frameworks: valueSubmit.frameworks
+        .map((v: any, i: any) => v ? this.frameworks[i] : null)
+        .filter((v: any) => v !== null)
+    });
+
     console.log(valueSubmit);
-    
+
 
     if (this.formulario.valid) {
 
