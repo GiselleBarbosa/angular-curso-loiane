@@ -19,6 +19,16 @@
     </app-campo-control-erro>
   </div>
 
+   <!-- Confirmação de Email -->
+   <div class="mb-3 col-sm-12">
+    <label for="confirmarEmail" class="form-label">Confirmar Email</label>
+    <input type="email" class="form-control" [ngClass]="aplicaCssErro('confirmarEmail')" formControlName="confirmarEmail" id="confirmarEmail"
+      placeholder="Confirmar o email é obrigatório">
+
+      <app-campo-control-erro [mostrarErro]="!!formulario.get('confirmarEmail')?.hasError('equalsTo')" msgErro="Por favor, confirme o e-mail digitando-o novamente">
+      </app-campo-control-erro>
+  </div>
+
   <!-- Endereço -->
 
   <!-- Cep -->
@@ -26,11 +36,14 @@
     <div class="row mb-3">
       <div class="col-md-3 mb-3">
         <label for="cep" class="form-label">CEP</label>
-        <input type="text" class="form-control" id="cep" formControlName="cep" (blur)="consultaCEP()"
-          [ngClass]="aplicaCssErro('endereco.cep')">
+        <input type="text" class="form-control" id="cep" formControlName="cep" 
+        (blur)="consultaCEP()"
+        [ngClass]="aplicaCssErro('endereco.cep')">
 
-        <app-campo-control-erro [mostrarErro]="verificaValidTouched('endereco.cep')" msgErro=" CEP é obrigatório">
+        <app-campo-control-erro [mostrarErro]="verificaValidTouched('endereco.cep')" msgErro="CEP inválido">
         </app-campo-control-erro>
+  
+
       </div>
 
       <!-- Número -->

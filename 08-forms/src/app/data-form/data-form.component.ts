@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 import { EstadoBr } from '../shared/models/estado-br';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
-import { FormValidations } from '../shared/services/form-validation';
+import { FormValidations } from '../shared/services/form-validations';
 
 @Component({
   selector: 'data-form',
@@ -19,6 +19,7 @@ export class DataFormComponent implements OnInit {
   cargos!: any[];
   tecnologias!: any[];
   newsletterOp!: any[];
+
   frameworks = ['Angular', 'React', 'Vue', 'Sencha']
 
   constructor(
@@ -55,9 +56,10 @@ export class DataFormComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
+      confirmarEmail: [null, [FormValidations.equalsTo('email')]],
 
       endereco: this.formBuilder.group({
-        cep: [null, Validators.required],
+        cep: [null, [Validators.required, FormValidations.cepValidator]],
         numero: [null, Validators.required],
         complemento: [null],
         rua: [null, Validators.required],
@@ -89,31 +91,6 @@ export class DataFormComponent implements OnInit {
     return <FormArray>this.formulario.get('frameworks');
   }
 
-  // requiredMinCheckbox(min = 1) {
-  //   const validator = (formArray: FormArray) => {
-  //     /*   const values = formArray.controls;
-  //       let totalChecked = 0
-  //       for(let i = 0; i < values.length ; i++) {
-  //         if(values[i].value){
-  //           totalChecked += 1
-  //         }
-  //       } */
-  //     const totalChecked = formArray.controls
-  //       .map(v => v.value)
-  //       .reduce((total, current) => current ? total + current : total, 0)
-  //     return totalChecked >= min ? null : { required: true };
-  //   };
-  //   return validator;
-  // }
-
-  /* 
-  requiredMinCheckbox(min = 1) {
-    return (formArray: AbstractControl) => {
-      const totalChecked = (<FormArray>formArray).controls.filter(v => v.value).length;
-      return totalChecked >= min ? null : { required: true };
-    }
-  }
-   */
   onSubmit() {
     console.log(this.formulario.value);
 
@@ -159,7 +136,7 @@ export class DataFormComponent implements OnInit {
     return !this.formulario.get(campo)?.valid && this.formulario.get(campo)?.touched
   }
 
-  verificaEmailInvalido() {
+   verificaEmailInvalido() {
     let campoEmail = this.formulario.get('email');
     if (campoEmail?.errors) {
       return campoEmail.errors['email'] && campoEmail.touched
@@ -174,9 +151,9 @@ export class DataFormComponent implements OnInit {
   consultaCEP() {
     const cep = this.formulario.get('endereco.cep')?.value;
 
-    if (cep !== '') {
+    if (cep != null && cep !== '') {
       this.cepService.consultaCEP(cep)
-        .subscribe((dados: any) => this.populaDadosForm(dados));
+      .subscribe(dados => this.populaDadosForm(dados));
     }
   }
 
