@@ -6,6 +6,7 @@ import { EstadoBr } from '../shared/models/estado-br';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { FormValidations } from '../shared/services/form-validations';
+import { VerificaEmailService } from './services/verifica-email.service';
 
 @Component({
   selector: 'data-form',
@@ -26,17 +27,17 @@ export class DataFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private dropdownService: DropdownService,
-    private cepService: ConsultaCepService
+    private cepService: ConsultaCepService,
+    private verificaEmailService: VerificaEmailService
   ) { }
 
   ngOnInit(): void {
+    // this.verificaEmailService.verificarEmail('email@email.com').subscribe();
 
     this.estados = this.dropdownService.getEstadosBr();
 
     this.cargos = this.dropdownService.getCadastro();
-
     this.tecnologias = this.dropdownService.getTecnologias();
-
     this.newsletterOp = this.dropdownService.getNewsletter();
 
     /*     this.dropdownService.getEstadosBr().subscribe(dados => { 
@@ -55,12 +56,11 @@ export class DataFormComponent implements OnInit {
 
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.email]],
+      email: [null, [Validators.required, Validators.email], [this.validarEmail.bind(this)]],
       confirmarEmail: [null, [FormValidations.equalsTo('email')]],
 
       endereco: this.formBuilder.group({
-        cep: [null, [Validators.required, FormValidations.cepValidator]],
-        numero: [null, Validators.required],
+        cep: [null, [Validators.required, Validators.pattern(/^[0-9]{5}-[0-9]{3}$/)]], numero: [null, Validators.required],
         complemento: [null],
         rua: [null, Validators.required],
         bairro: [null, Validators.required],
@@ -136,7 +136,7 @@ export class DataFormComponent implements OnInit {
     return !this.formulario.get(campo)?.valid && this.formulario.get(campo)?.touched
   }
 
-   verificaEmailInvalido() {
+  verificaEmailInvalido() {
     let campoEmail = this.formulario.get('email');
     if (campoEmail?.errors) {
       return campoEmail.errors['email'] && campoEmail.touched
@@ -153,7 +153,7 @@ export class DataFormComponent implements OnInit {
 
     if (cep != null && cep !== '') {
       this.cepService.consultaCEP(cep)
-      .subscribe(dados => this.populaDadosForm(dados));
+        .subscribe(dados => this.populaDadosForm(dados));
     }
   }
 
@@ -196,6 +196,10 @@ export class DataFormComponent implements OnInit {
   setarTecnologias() {
     this.formulario.get('tecnologias')?.setValue(['java', 'javascript', 'php']);
 
+  }
+  validarEmail(formControl: FormControl) {
+    return this.verificaEmailService.verificarEmail(formControl.value)
+    .pipe(map(emailExiste => emailExiste ? { emailInvalido : true } : null))
   }
 }
 

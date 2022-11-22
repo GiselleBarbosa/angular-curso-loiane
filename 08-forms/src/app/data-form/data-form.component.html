@@ -23,9 +23,17 @@
    <div class="mb-3 col-sm-12">
     <label for="confirmarEmail" class="form-label">Confirmar Email</label>
     <input type="email" class="form-control" [ngClass]="aplicaCssErro('confirmarEmail')" formControlName="confirmarEmail" id="confirmarEmail"
-      placeholder="Confirmar o email é obrigatório">
+      placeholder="confirmar o email é obrigatório">
 
-      <app-campo-control-erro [mostrarErro]="!!formulario.get('confirmarEmail')?.hasError('equalsTo')" msgErro="Por favor, confirme o e-mail digitando-o novamente">
+      <app-campo-control-erro [mostrarErro]="!!formulario.get('confirmarEmail')?.hasError('equalsTo')" msgErro="Por favor, confirme se o email esta correto">
+      </app-campo-control-erro>
+      <app-campo-control-erro [mostrarErro]="formulario.get('email')?.status === 'PENDING'" 
+      msgErro="Por favor aguarde, Validando email...">
+      </app-campo-control-erro>
+      <app-campo-control-erro [mostrarErro]="formulario.get('email')?.status === 'VALID'" 
+      msgErro="Email valido!">
+      </app-campo-control-erro>
+      <app-campo-control-erro [mostrarErro]="formulario.get('email')?.hasError('emailInvalido')" msgErro="Email já cadastrado!">
       </app-campo-control-erro>
   </div>
 
