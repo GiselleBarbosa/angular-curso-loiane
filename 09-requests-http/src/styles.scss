@@ -2,7 +2,6 @@
 @import "../node_modules/bootstrap/scss/functions";
 
 // Variable overrides second
-$primary: #900;
 $enable-shadows: true;
 $prefix: "mo-";
 
@@ -22,7 +21,3 @@ $prefix: "mo-";
 @import "../node_modules/bootstrap/scss/grid";
 @import "../node_modules/bootstrap/scss/helpers";
 @import "../node_modules/bootstrap/scss/utilities/api";
-
-.selector-for-some-widget {
-  box-sizing: content-box;
-}
