@@ -9,11 +9,15 @@ import { CursosService } from './cursos.service';
 })
 export class CursosListaComponent implements OnInit {
 
-  cursos!: Curso[];
+  cursos!: Curso[]
 
   constructor( private service: CursosService) { }
 
-  ngOnInit() {
-    this.service.listar().subscribe(console.log)
+  ngOnInit(): void {
+    this.service.listar().subscribe(
+      cursos => this.cursos = cursos
+    )
   }
+
+
 }
