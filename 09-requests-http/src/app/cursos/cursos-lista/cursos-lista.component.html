@@ -19,9 +19,9 @@
       </thead>
 
       <tbody>
-        <tr>
-          <td></td>
-          <td></td>
+        <tr *ngFor="let curso of cursos">
+          <td>{{curso.id}}</td>
+          <td>{{curso.nome}}</td>
 
           <td>
             <span class="float-end">

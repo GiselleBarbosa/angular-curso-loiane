@@ -14,10 +14,7 @@ export class CursosListaComponent implements OnInit {
   constructor( private service: CursosService) { }
 
   ngOnInit(): void {
-    this.service.listar().subscribe(
-      cursos => this.cursos = cursos
-    )
+    this.service.listar().
+    subscribe(dados => this.cursos = dados)
   }
-
-
 }

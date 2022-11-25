@@ -3,12 +3,15 @@
     {
       "nome": "Angular",
       "id": 1
-    },
-    [
+    },    
       {
         "nome": "javascript",
         "id": 2
+      },    
+      {
+        "nome": "React",
+        "id": 3
       }
-    ]
+    
   ]
 }
