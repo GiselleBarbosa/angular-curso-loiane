@@ -1,0 +1,24 @@
+<div class="container">
+  <h3 class="row mt-4 ms-3">RxJS POC - Unsubscribe</h3>
+
+  <div class="row mt-5">
+    <div class="col-sm-2 mb-4 ms-1">
+      <input type="text" class="form-control" id="exampleFormControlInput1" #valor placeholder="Valor">
+    </div>
+
+      <div class="col-sm-2 mb-4 ms-3 row">
+      <button type="button" class="btn btn-outline-primary btn-group row" (click)="emitirValor(valor.value)">Emitir Valor</button>
+      </div>
+ 
+    <div class="md-4 col-sm-3 ms-3">
+      <button type="button" class="btn btn-outline-danger btn-group row" (click)="destruirComponentes()">Mostrar / Destruir
+        Componentes</button>
+    </div>
+
+<div class="row mt-4" *ngIf="mostrarComponentes">
+  <app-poc class="col-md-4"></app-poc>
+  <app-poc-unsub class="col-md-4"></app-poc-unsub>
+  <app-poc-async class="col-md-4"></app-poc-async>
+  <app-poc-take-until class="col-md-4"></app-poc-take-until>
+  <app-poc-take class="col-md-4"></app-poc-take>
+</div>
