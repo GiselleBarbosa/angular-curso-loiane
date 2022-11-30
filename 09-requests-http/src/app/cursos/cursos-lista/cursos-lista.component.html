@@ -39,7 +39,7 @@
 
     <ng-template #loadingError>
       <div *ngIf="error$ | async ; else loadingSuccess">
-        Erro ao carregar a lista de cursos. Tente novamente mais tarde.
+        <!-- Erro ao carregar a lista de cursos. Tente novamente mais tarde. -->
       </div>
 
         <ng-template #loadingSuccess><span>Carregando Cursos ...</span> </ng-template>
