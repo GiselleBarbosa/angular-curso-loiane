@@ -9,23 +9,31 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class CursosFormComponent implements OnInit {
 
   formulario!: FormGroup;
+  submitted: boolean = true
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.formulario = this.formBuilder.group({
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]]
     });
+  }
+
+  hasError(field: string){
+    return this.formulario.get(field)?.errors
   }
 
   onSubmit() {
     console.log(this.formulario.value);
     if (this.formulario.valid) {
-      console.log('submit')
+      console.log('Submit')
     }
   }
 
   onCancel() {
-    return console.log('onCancel');
+    this.submitted = false;
+    this.formulario.reset()
+          console.log('Cancel')
+
   }
 }
