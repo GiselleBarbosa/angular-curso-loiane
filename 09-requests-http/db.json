@@ -11,6 +11,10 @@
     {
       "nome": "React",
       "id": 3
+    },
+    {
+      "nome": "teste",
+      "id": 4
     }
   ]
 }
