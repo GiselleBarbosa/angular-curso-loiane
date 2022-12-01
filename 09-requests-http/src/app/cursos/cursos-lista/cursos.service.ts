@@ -22,7 +22,7 @@ export class CursosService {
   }
 
   loadById(id: any){
-    return this.http.get(`${this.API}/${id}`)
+    return this.http.get<Curso>(`${this.API}/${id}`)
     .pipe(
       take(1)
       )
@@ -30,6 +30,11 @@ export class CursosService {
 
   create(curso:Curso){
     return this.http.post(this.API, curso)
+    .pipe(take(1))
+  }
+
+  update(curso: Curso){
+    return this.http.put(`${this.API}/${curso.id}`, curso)
     .pipe(take(1))
   }
 
