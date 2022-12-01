@@ -39,7 +39,7 @@ export class CursosListaComponent implements OnInit {
         })
       );
 
-    this.service.list()
+  /*   this.service.list()
     .pipe(
       catchError(error => of())
     )
@@ -48,8 +48,8 @@ export class CursosListaComponent implements OnInit {
         console.log(dados);
       }/* ,
       error => console.error(error),
-      () => console.log('Observable completo!')*/
-    ) 
+      () => console.log('Observable completo!')
+    );    */
   }
 
   handleError(){
