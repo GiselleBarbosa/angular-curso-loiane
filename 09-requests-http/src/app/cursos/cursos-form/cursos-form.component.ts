@@ -68,34 +68,54 @@ export class CursosFormComponent implements OnInit {
     console.log(this.formulario.value);
     if (this.formulario.valid) {
       console.log('Submit');
+
+      let messageSuccess = 'Curso criado com sucesso.';
+      let messageError = 'Erro ao criar curso, tente novamente.';
       if (this.formulario.value.id) {
-        // update
-        this.service.update(this.formulario.value).subscribe(
-          success => {
-            this.modal.showAlertSuccess('Curso atualizado com sucesso.');
-            this.location.back();
-          },
-          error => this.modal.showAlertDanger('Erro ao atualizar curso, tente novamente.'),
-          () => console.log('UPDATE completo')
-        )
-      } else {
-        this.service.create(this.formulario.value)
-          .subscribe(
-            success => {
-              this.modal.showAlertSuccess('Criado com sucesso.');
-              this.location.back();
-            },
-            error => this.modal.showAlertDanger('Erro ao criar curso, tente novamente.'),
-            () => console.log('Request completo')
-          )
+        messageSuccess = 'Curso atualizado com sucesso.';
+        messageError = 'Erro ao atualizar curso, tente novamente.';
       }
 
-    }
-  }
 
+      this.service.save(this.formulario.value).subscribe(
+        success => {
+          this.modal.showAlertSuccess(messageSuccess);
+          this.location.back();
+        },
+        error =>
+          this.modal.showAlertDanger(messageError),
+      )
+    }
+
+    //     if (this.formulario.value.id) {
+    //       // update
+    //       this.service.update(this.formulario.value).subscribe(
+    //         success => {
+    //           this.modal.showAlertSuccess('Curso atualizado com sucesso.');
+    //           this.location.back();
+    //         },
+    //         error => this.modal.showAlertDanger('Erro ao atualizar curso, tente novamente.'),
+    //         () => console.log('UPDATE completo')
+    //       )
+    //     } else {
+    //       this.service.create(this.formulario.value)
+    //         .subscribe(
+    //           success => {
+    //             this.modal.showAlertSuccess('Curso criado com sucesso.');
+    //             this.location.back();
+    //           },
+    //           error => this.modal.showAlertDanger('Erro ao criar curso, tente novamente.'),
+    //           () => console.log('Request completo')
+    //         )
+    //     }
+
+    //   }
+    // }
+  }
   onCancel() {
     this.submitted = false;
     this.formulario.reset()
     console.log('Cancel')
+    this.location.back();
   }
 }

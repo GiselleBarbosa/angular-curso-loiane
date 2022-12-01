@@ -9,33 +9,40 @@ import { environment } from 'src/environments/environment';
 })
 export class CursosService {
 
-  private readonly API  = `${environment.API}/cursos`
+  private readonly API = `${environment.API}/cursos`
 
   constructor(private http: HttpClient) { }
 
   list() {
     return this.http.get<Curso[]>(this.API)
-    .pipe(
-      delay(1000),
-      tap(console.log)
-    )
-  }
-
-  loadById(id: any){
-    return this.http.get<Curso>(`${this.API}/${id}`)
-    .pipe(
-      take(1)
+      .pipe(
+        delay(1000),
+        tap(console.log)
       )
   }
 
-  create(curso:Curso){
-    return this.http.post(this.API, curso)
-    .pipe(take(1))
+  loadById(id: any) {
+    return this.http.get<Curso>(`${this.API}/${id}`)
+      .pipe(
+        take(1)
+      )
   }
 
-  update(curso: Curso){
+  private create(curso: Curso) {
+    return this.http.post(this.API, curso)
+      .pipe(take(1))
+  }
+
+  private update(curso: Curso) {
     return this.http.put(`${this.API}/${curso.id}`, curso)
-    .pipe(take(1))
+      .pipe(take(1))
+  }
+
+  save(curso: Curso) {
+    if (curso.id) {
+      return this.update(curso)
+    }
+    return this.create(curso)
   }
 
 }
