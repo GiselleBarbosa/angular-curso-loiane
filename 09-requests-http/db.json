@@ -1,32 +1,16 @@
 {
   "cursos": [
     {
-      "id": 1,
-      "nome": "Angular 15"
-    },
-    {
       "nome": "Javascript",
       "id": 2
     },
     {
-      "nome": "React",
-      "id": 3
-    },
-    {
-      "id": 4,
+      "id": 3,
       "nome": "Node JS"
     },
     {
-      "id": 5,
-      "nome": "Python 3"
-    },
-    {
-      "id": 6,
-      "nome": "Bootstrap 5"
-    },
-    {
-      "id": 7,
-      "nome": "Angular"
+      "id": 4,
+      "nome": "React"
     }
   ]
 }

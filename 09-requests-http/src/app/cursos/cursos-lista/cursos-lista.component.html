@@ -5,7 +5,7 @@
     </div>
     <div class="float-end">
       <button type="button" class="btn btn-primary me-2" [routerLink]="['novo']">Novo Curso</button>
-      <button type="button" class="btn btn-danger" (click)="onRefresh()">Atualizar</button>
+      <button type="button" class="btn btn-danger" (click)="onRefresh()">Atualizar Página</button>
     </div>
   </div>
   <div class="card-body">
@@ -28,7 +28,7 @@
           <td>
             <span class="float-end">
               <button class="btn btn-outline-primary mb-1 btn-sm me-3" (click)="onEdit(curso.id)">Atualizar</button>
-              <button class="btn btn-outline-danger mb-1 btn-sm">Remover</button>
+              <button class="btn btn-outline-danger mb-1 btn-sm" (click)="onDelete(curso)">Remover</button>
             </span>
           </td>
 
@@ -45,5 +45,12 @@
         Erro ao carregar a lista de cursos. Tente novamente mais tarde.
       </div>
       </ng-template> -->
-
   </div>
+  
+  <ng-template #deleteModal>
+    <div class="modal-body text-center">
+      <p>Tem certeza que deseja remover este curso?</p>
+      <button type="button" class="btn btn-danger me-2" (click)="onConfirmDelete()">Sim</button>
+      <button type="button" class="btn btn-primary" (click)="onDeclineDelete()" >Não</button>
+    </div>
+  </ng-template>
