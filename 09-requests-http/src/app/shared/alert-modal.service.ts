@@ -19,7 +19,7 @@ export class AlertModalService {
     bsModalRef.content.type = type;
     bsModalRef.content.message = message;
 
-    if(dismissTimeout){
+    if (dismissTimeout){
       setTimeout(()=>bsModalRef.hide(), dismissTimeout)
     }
   }
@@ -37,12 +37,14 @@ export class AlertModalService {
     bsModalRef.content.title = title;
     bsModalRef.content.msg = msg;
 
-    if(okTxt){
-      bsModalRef.content.confirmTxt = okTxt;
+    if (okTxt){
+      bsModalRef.content.okTxt = okTxt;
     }
-    if(cancelText){
+    if (cancelText){
       bsModalRef.content.cancelText = cancelText;
     }
+
+    return (<ConfirmModalComponent>bsModalRef.content).confirmResult;
   }
 
 }

@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 // import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { catchError, Observable, of, Subject } from 'rxjs';
+import { catchError, Observable, of, Subject, EMPTY } from 'rxjs';
 // import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 import { Curso } from './curso';
 import { CursosService } from './cursos.service';
 import { AlertModalService } from '../../shared/alert-modal.service';
 import { ActivatedRoute, Router, Routes } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { take, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -19,8 +20,8 @@ export class CursosListaComponent implements OnInit {
 
   //bsModalRef?: BsModalRef;
 
-  deleteModalRef?: BsModalRef;
-  @ViewChild('deleteModal') deleteModal: any;
+  deleteModalRef!: BsModalRef;
+  @ViewChild('deleteModal', { static: true }) deleteModal: any;
 
   cursos$?: Observable<Curso[]>
   error$ = new Subject<boolean>();
@@ -48,7 +49,7 @@ export class CursosListaComponent implements OnInit {
           console.error(error);
           // this.error$.next(true);
           this.handleError();
-          return of();
+          return EMPTY;
         })
       );
 
@@ -80,7 +81,21 @@ export class CursosListaComponent implements OnInit {
     this.cursoSelecionado = curso;
     // this.deleteModalRef = this.modalService.show(this.deleteModal, { class: 'modal-sm' })
 
-    this.alertService.showConfirm('Confirmacao', 'Tem certeza que deseja remover este curso?','Sim')
+    const result$ = this.alertService.showConfirm('Confirmacao', 'Tem certeza que deseja remover este curso?','Sim')
+    result$.asObservable()
+    .pipe(
+      take(1),
+      switchMap(result => result ? this.service.remove(curso.id) : EMPTY)
+    )
+    .subscribe(
+      success => {
+        this.onRefresh();
+       
+      },
+      error => {
+        this.alertService.showAlertDanger('Erro ao tentar remover curso. Tente novamente mais tarde.');
+      } 
+    );
   }
 
   onConfirmDelete() {
