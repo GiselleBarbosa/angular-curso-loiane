@@ -8,6 +8,7 @@ import { AlertModalService } from '../../shared/alert-modal.service';
 import { ActivatedRoute, Router, Routes } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { take, switchMap } from 'rxjs/operators';
+import { Cursos2Service } from 'src/app/shared/cursos2.service';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -29,11 +30,11 @@ export class CursosListaComponent implements OnInit {
   cursoSelecionado!: Curso;
 
   constructor(
-    private service: CursosService,
+    private service: Cursos2Service,
     private alertService: AlertModalService,
     private router: Router,
     private route: ActivatedRoute,
-    private modalService: BsModalService
+    // private modalService: BsModalService
   ) { }
 
   // private modalService: BsModalService // private modalService: BsModalService

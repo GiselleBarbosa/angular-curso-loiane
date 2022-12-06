@@ -4,6 +4,7 @@ import { CursosService } from '../cursos-lista/cursos.service';
 import { AlertModalService } from '../../shared/alert-modal.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { Cursos2Service } from 'src/app/shared/cursos2.service';
 // import { map, switchMap } from 'rxjs/operators';
 
 
@@ -19,7 +20,7 @@ export class CursosFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private service: CursosService,
+    private service: Cursos2Service,
     private modal: AlertModalService,
     private location: Location,
     private route: ActivatedRoute) { }
@@ -120,6 +121,6 @@ export class CursosFormComponent implements OnInit {
   onCancel() {
     this.submitted = false;
     this.formulario.reset();
-    // console.log('onCancel');
+    this.location.back();
   }
 }
