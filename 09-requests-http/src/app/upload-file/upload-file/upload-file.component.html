@@ -3,5 +3,17 @@
     <label for="formFileMultiple" class="form-label">Selecionar Arquivo</label>
     <input class="form-control" type="file" id="customFileLabel" multiple (change)="onChange($event)">
   </div>
-  <button class="btn btn-primary" type="button" (click)="onUpload()" [disabled]="!files">Upload</button>
+
+  <div class="progress">
+    <div 
+    class="progress-bar" 
+    role="progressbar" 
+    style="width: 25%;" 
+    [style.width]="progress + '%'"
+    >
+  {{progress}}%
+    </div>
+  </div>
+
+  <button class="btn btn-primary mt-3" type="button" (click)="onUpload()" [disabled]="!files">Upload</button>
 </div>
