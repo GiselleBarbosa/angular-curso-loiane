@@ -2,13 +2,7 @@
   <div class="search-box">
     <div class="row">
       <div class="col-md-9">
-        <input 
-        type="text" 
-        id="myInput" 
-        class="form-control" 
-        [formControl]="queryField"
-        placeholder="Pesquisar Libs" 
-        />
+        <input type="text" id="myInput" class="form-control" [formControl]="queryField" placeholder="Pesquisar Libs" />
       </div>
       <div class="col-auto">
         <button class="btn btn-md btn-primary" (click)="onSearch()">Pesquisar</button>
@@ -16,20 +10,23 @@
     </div>
   </div>
   <div class="search-list">
-    <h3>303 Records Found</h3>
+    <h3>{{ total }} Registros encontrados.</h3> 
     <table class="table" id="myTable">
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Category</th>
-        </tr>        
+          <th>Nome</th>
+          <th>Versao</th>
+        </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>HTML</td>
-          <td>Web Development</td>
+        <tr *ngFor="let result of results$ | async ">
+          <td>
+            {{ result.name }}
+          </td>
+          <td> 
+            {{ result.version }}
+          </td>
         </tr>
       </tbody>
     </table>
- 
-</div>
+  </div>
