@@ -1,7 +1,7 @@
 import { UploadFileService } from './upload-file.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-upload-file',
@@ -10,11 +10,11 @@ import { environment } from 'src/environments/environment';
 })
 export class UploadFileComponent implements OnInit, OnDestroy {
 
-files!: Set<File> 
-inscricao!: Subscription;
+  files!: Set<File>
+  inscricao!: Subscription;
 
-  constructor( private service: UploadFileService ) { }
- 
+  constructor(private service: UploadFileService) { }
+
   ngOnInit() {
   }
 
@@ -33,14 +33,18 @@ inscricao!: Subscription;
     document.getElementById('customFileLabel')!.innerHTML = fileNames.join(', ');
   }
 
-  onUpload(){
-    if(this.files && this.files.size > 0) {
-     this.inscricao = this.service.upload(this.files, environment.BASE_URL + '/upload')
-      .subscribe(response => console.log('Upload concluído com sucesso!'));
+  onUpload() {
+    if (this.files && this.files.size > 0) {
+      this.inscricao = this.service.upload(this.files, environment.BASE_URL + '/upload')
+        .subscribe(response => {
+          console.log(response);
+          console.log('Upload concluído com sucesso!')
+        });
     }
 
   }
   ngOnDestroy() {
     this.inscricao.unsubscribe()
   }
+
 }
