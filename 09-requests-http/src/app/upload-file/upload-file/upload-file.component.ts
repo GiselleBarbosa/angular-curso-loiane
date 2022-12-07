@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Subscription } from 'rxjs';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { uploadProgress, filterResponse } from 'src/app/shared/rxjs-Operators';
+import { uploadProgress, filterResponse } from 'src/app/shared/rxjs-operators';
 
 @Component({
   selector: 'app-upload-file',
@@ -15,7 +15,6 @@ export class UploadFileComponent implements OnInit, OnDestroy {
   files!: Set<File>
   progress = 0;
   inscricao!: Subscription;
-
 
   constructor(private service: UploadFileService) { }
 
@@ -50,21 +49,37 @@ export class UploadFileComponent implements OnInit, OnDestroy {
           filterResponse()
         )
         .subscribe(response => console.log('Upload concluído com sucesso!'))
-        // .subscribe((event: HttpEvent<Object>) => {
-        //   //  console.log(event);
-        //   if (event.type === HttpEventType.Response) {
-        //     console.log('Upload concluído com sucesso!');
-        //   } else if (event.type === HttpEventType.UploadProgress) {
-        //     const percentDone = Math.round((event.loaded * 100) / event.total!);
-        //     // console.log('progresso', percentDone);
-        //     this.progress = percentDone;
-        //   }
-        // });
+      // .subscribe((event: HttpEvent<Object>) => {
+      //   //  console.log(event);
+      //   if (event.type === HttpEventType.Response) {
+      //     console.log('Upload concluído com sucesso!');
+      //   } else if (event.type === HttpEventType.UploadProgress) {
+      //     const percentDone = Math.round((event.loaded * 100) / event.total!);
+      //     // console.log('progresso', percentDone);
+      //     this.progress = percentDone;
+      //   }
+      // });
     }
-
   }
+
+  onDownloadExcel() {
+    this.service.download(environment.BASE_URL + '/downloadExcel')
+      .subscribe((res: any) => {
+        this.service.handleFile(res, 'report.xlsx')
+    });
+  }
+
+  onDownloadPdf() {
+    this.service.download(environment.BASE_URL + '/downloadPDF')
+    .subscribe((res: any) => {
+      this.service.handleFile(res, 'report.pdf')
+  });
+}
+
   ngOnDestroy() {
     this.inscricao.unsubscribe()
   }
+
+
 
 }
