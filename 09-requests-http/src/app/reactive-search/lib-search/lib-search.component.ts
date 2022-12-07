@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-lib-search',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LibSearchComponent implements OnInit {
 
+  queryField = new FormControl();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onSearch(){
+    console.log(this.queryField.value);
   }
 
 }
