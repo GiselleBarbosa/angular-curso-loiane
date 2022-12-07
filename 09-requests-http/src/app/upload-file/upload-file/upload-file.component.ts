@@ -1,5 +1,5 @@
 import { UploadFileService } from './upload-file.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Subscription } from 'rxjs';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
@@ -10,11 +10,10 @@ import { uploadProgress, filterResponse } from 'src/app/shared/rxjs-operators';
   templateUrl: './upload-file.component.html',
   styleUrls: ['./upload-file.component.css']
 })
-export class UploadFileComponent implements OnInit, OnDestroy {
+export class UploadFileComponent implements OnInit {
 
   files!: Set<File>
   progress = 0;
-  inscricao!: Subscription;
 
   constructor(private service: UploadFileService) { }
 
@@ -40,7 +39,7 @@ export class UploadFileComponent implements OnInit, OnDestroy {
 
   onUpload() {
     if (this.files && this.files.size > 0) {
-      this.inscricao = this.service.upload(this.files, environment.BASE_URL + '/upload')
+      this.service.upload(this.files, environment.BASE_URL + '/upload')
         .pipe(
           uploadProgress(progress => {
             console.log(progress);
@@ -66,20 +65,14 @@ export class UploadFileComponent implements OnInit, OnDestroy {
     this.service.download(environment.BASE_URL + '/downloadExcel')
       .subscribe((res: any) => {
         this.service.handleFile(res, 'report.xlsx')
-    });
+      });
   }
 
   onDownloadPdf() {
     this.service.download(environment.BASE_URL + '/downloadPDF')
-    .subscribe((res: any) => {
-      this.service.handleFile(res, 'report.pdf')
-  });
-}
-
-  ngOnDestroy() {
-    this.inscricao.unsubscribe()
+      .subscribe((res: any) => {
+        this.service.handleFile(res, 'report.pdf')
+      });
   }
-
-
 
 }
